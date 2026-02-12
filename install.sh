@@ -40,13 +40,13 @@ else
 fi
 
 # Final check for essential files before moving to /opt
-if [[ ! -f "loader.jar" || ! -f "burp_suite.ico" ]]; then
-    echo "[-] Error: loader.jar or burp_suite.ico missing in current directory."
+if [[ ! -f "loader.jar" || ! -f "burp_suite.ico" || ! -f "burpsuite_pro.ico" ]]; then
+    echo "[-] Error: loader.jar or burp_suite.ico or burpsuite_pro.ico missing in current directory."
     exit 1
 fi
 
 sudo mkdir -p $INSTALL_DIR
-sudo cp $JAR_FILE loader.jar burp_suite.ico $INSTALL_DIR/
+sudo cp $JAR_FILE loader.jar burpsuite_pro.ico $INSTALL_DIR/
 
 # Create a global binary in /usr/bin for easy access from terminal
 echo "[*] Creating global executable wrapper: /usr/bin/burpsuitepro"
@@ -69,7 +69,8 @@ sudo bash -c "cat > /usr/share/applications/burpsuite.desktop <<EOF
 Name=Burp Suite Pro
 Comment=Web Application Security Testing
 Exec=/usr/bin/burpsuitepro
-Icon=$INSTALL_DIR/burp_suite.ico
+Icon=$INSTALL_DIR/burpsuite_pro.ico
+StartupWMClass=burp-StartBurp
 Terminal=false
 Type=Application
 Categories=Development;Security;
